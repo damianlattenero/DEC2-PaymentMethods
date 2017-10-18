@@ -1,7 +1,7 @@
 package mvctest
 
-import mvctest.domain.Hotel
-import mvctest.service.HotelRepository
+import mvctest.domain.PaymentMethods
+import mvctest.service.PaymentMethodRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
 import org.springframework.stereotype.Component
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component
   */
 
 @Component
-class DbPopulator @Autowired()(val hotelRepository: HotelRepository) extends CommandLineRunner {
+class DbPopulator @Autowired()(val hotelRepository: PaymentMethodRepository) extends CommandLineRunner {
   override def run(args: String*): Unit = {
     (1 to 10).foreach(i => {
-      hotelRepository.save(new Hotel(id=null, name = s"Hotel $i", address = s"Address $i", zip = s"Zip $i"))  
+      hotelRepository.save(new PaymentMethods(id=null, name = s"Payment Method $i", address = s"Name $i", zip = s"Zip $i"))
     })
   }
 }
