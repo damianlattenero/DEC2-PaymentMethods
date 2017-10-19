@@ -6,6 +6,7 @@ import javax.validation.Valid
 import mvctest.domain.PaymentMethods
 import mvctest.service.PaymentMethodRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.{HttpStatus, MediaType, ResponseEntity}
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
@@ -14,6 +15,19 @@ import org.springframework.web.bind.annotation._
 @Controller
 @RequestMapping(Array("/paymentmethods"))
 class PaymentMethodController @Autowired()(private val paymentMethodRepository: PaymentMethodRepository) {
+
+  @GetMapping(Array("/{idSite}", MediaType.APPLICATION_JSON_VALUE))
+  def getPaymentMethods(@PathVariable("idSite") idSite: String): ResponseEntity[PaymentMethods] = {
+    var p = new PaymentMethods()
+    p.setAddress("f1")
+    p.setId(1l)
+    p.setName("fr")
+    p.setZip(idSite)
+    new ResponseEntity[PaymentMethods](p,HttpStatus.OK)
+  }
+
+
+
 
   @GetMapping
   def list(model: Model) = {
