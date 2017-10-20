@@ -1,6 +1,7 @@
 package mvctest.web
 
 import java.lang.Long
+import java.util
 import javax.validation.Valid
 
 import mvctest.domain.PaymentMethods
@@ -17,13 +18,16 @@ import org.springframework.web.bind.annotation._
 class PaymentMethodController @Autowired()(private val paymentMethodRepository: PaymentMethodRepository) {
 
   @GetMapping(Array("/{idSite}", MediaType.APPLICATION_JSON_VALUE))
-  def getPaymentMethods(@PathVariable("idSite") idSite: String): ResponseEntity[PaymentMethods] = {
+  def getPaymentMethods(@PathVariable("idSite") idSite: String): ResponseEntity[util.ArrayList[PaymentMethods]] = {
     var p = new PaymentMethods()
     p.setAddress("f1")
     p.setId(1l)
     p.setName("fr")
     p.setZip(idSite)
-    new ResponseEntity[PaymentMethods](p,HttpStatus.OK)
+    val list: util.ArrayList[PaymentMethods] = new util.ArrayList[PaymentMethods]()
+    list.add(p)
+    list.add(p)
+    new ResponseEntity[util.ArrayList[PaymentMethods]](list,HttpStatus.OK)
   }
 
 
