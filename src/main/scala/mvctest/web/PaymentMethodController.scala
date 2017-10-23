@@ -12,22 +12,21 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation._
+import scala.collection.JavaConverters._
 
 @Controller
 @RequestMapping(Array("/paymentmethods"))
 class PaymentMethodController @Autowired()(private val paymentMethodRepository: PaymentMethodRepository) {
 
   @GetMapping(Array("/{idSite}", MediaType.APPLICATION_JSON_VALUE))
-  def getPaymentMethods(@PathVariable("idSite") idSite: String): ResponseEntity[util.ArrayList[PaymentMethods]] = {
+  def getPaymentMethods(@PathVariable("idSite") idSite: String): ResponseEntity[util.List[PaymentMethods]] = {
     var p = new PaymentMethods()
     p.setAddress("f1")
     p.setId(1l)
     p.setName("fr")
     p.setZip(idSite)
-    val list: util.ArrayList[PaymentMethods] = new util.ArrayList[PaymentMethods]()
-    list.add(p)
-    list.add(p)
-    new ResponseEntity[util.ArrayList[PaymentMethods]](list,HttpStatus.OK)
+    val list = p :: p :: Nil
+    new ResponseEntity[util.List[PaymentMethods]](list.asJava,HttpStatus.OK)
   }
 
 
